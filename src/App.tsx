@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ListBook from './components/books/ListBook';
+import AddBook from './components/books/AddBook';
+import EditBook from './components/books/EditBook';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Books App with Redux</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/books" element={<ListBook />} />
+          <Route path="/books/add" element={<AddBook />} />
+          <Route path="/books/edit/:id" element={<EditBook />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
