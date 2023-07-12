@@ -4,10 +4,8 @@ import App from './App';
 
 import {Store, createStore, applyMiddleware} from 'redux';
 import reducer from './redux/reducers/reducer';
-import {thunk} from 'redux-thunk';
-
-
-
+import thunk from 'redux-thunk';
+import { Provider } from "react-redux"
 
 const store: Store<BookState, BookAction> & {
   dispatch: DispatchType
@@ -19,7 +17,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

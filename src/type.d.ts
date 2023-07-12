@@ -13,3 +13,5 @@ type BookAction = {
 type BookState = {
   books : IBook[]
 }
+
+type DispatchType = (args: BookAction) => BookAction

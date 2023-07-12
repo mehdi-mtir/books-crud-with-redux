@@ -1,9 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { deleteBook} from '../../redux/actions/actions';
+import { Dispatch } from "redux"
+import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
 const ListBook : React.FC= () => {
-  const [books, setBooks] = useState([])
+
+  //Récupérer la liste des données à partir du store
+  const books: readonly IBook[] = useSelector(
+    (state: BookState) => state.books,
+    shallowEqual
+  )
+
+  //Gestion de l'action de suppression
+  const dispatch: Dispatch<any> = useDispatch()
+
+  const delBook = React.useCallback(
+    (book: IBook) => dispatch( deleteBook(book) ),
+    [dispatch]
+  )
+
+
   return <div className="row">
   <h1>List Book Component</h1>
   <Link className="btn btn-success col-3" to={'/books/add'}>Ajouter un nouveau livre</Link>
@@ -24,7 +41,7 @@ const ListBook : React.FC= () => {
       <td>{book.titre}</td>
       <td>{book.auteur}</td>
       <td><Link className="btn btn-primary" to={`/books/update/${book.isbn}`} >Editer</Link></td>
-      <td><button className="btn btn-danger">Supprimer</button></td>
+      <td><button className="btn btn-danger" onClick={()=>{delBook(book)}}>Supprimer</button></td>
     </tr>)
   }
 
